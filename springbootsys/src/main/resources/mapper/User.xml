@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zx.sys.dao.UserDao">
+    <select id="GetUserList" resultType="com.zx.sys.entity.UserEntity">
+        select * from demo
+    </select>
+
+    <select id="GetUserInfoById"  resultType="com.zx.sys.entity.UserEntity">
+        select ID,Name,Age from demo where ID = #{id}
+    </select>
+
+    <insert id="InsertUser" useGeneratedKeys="true" keyProperty="ID" keyColumn="ID" parameterType="com.zx.sys.entity.UserEntity">
+        insert into demo (ID,Name,Age) values (#{ID},#{Name},#{Age})
+    </insert>
+
+    <update id="UpdateUser" parameterType="com.zx.sys.entity.UserEntity">
+        update demo
+        <set>
+            <if test="Name != null">Name = #{Name},</if>
+            <if test="Age > 0">Age = #{Age}</if>
+        </set>
+        where ID = #{ID}
+    </update>
+
+    <delete id="DeleteUser">
+        delete from demo where ID = #{ID}
+    </delete>
+</mapper>
